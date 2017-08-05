@@ -1,0 +1,7 @@
+{
+  "name": "Tonibot:DDAssistant",
+  "description": "A bot called Toni designed to match project requirements with resources	",
+  "repository": "https://github.com/charlesdavid532/DDAsisstant",
+  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "keywords": ["node", "express", "static"]
+}
