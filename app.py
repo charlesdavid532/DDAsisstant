@@ -115,10 +115,7 @@ def makeCard(resp):
     print("Inside make card")
     return {
         "speech": "Math and prime numbers it is!",
-        "basicCard": {
-            "title": "Math & prime numbers",
-            "image": "https://drive.google.com/open?id=0BzU--BJmmVjua0dSVnZNYVJCLXc"
-        }
+        "image": "https://drive.google.com/open?id=0BzU--BJmmVjua0dSVnZNYVJCLXc"
     }
 
 def getParameters(req):
