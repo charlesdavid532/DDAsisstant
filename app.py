@@ -114,7 +114,7 @@ def makeCard(resp):
     '''
     print("Inside make card")
     return {
-        "speech": "Math and prime numbers it is!",
+        "title": "Math & prime numbers",
         "image": "https://drive.google.com/open?id=0BzU--BJmmVjua0dSVnZNYVJCLXc"
     }
 
