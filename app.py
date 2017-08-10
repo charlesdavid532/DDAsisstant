@@ -66,6 +66,7 @@ def handle_message():
     # print(res)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
+    print("Before final return")
     return r
 
     
@@ -111,6 +112,7 @@ def makeCard(resp):
 
     return resp
     '''
+    print("Inside make card")
     return {
         "simpleResponse": {
             "textToSpeech": "Math and prime numbers it is!"
