@@ -117,10 +117,7 @@ def makeCard(resp):
         "speech": "Math and prime numbers it is!",
         "basicCard": {
             "title": "Math & prime numbers"
-            "image": {
-                "url": "https://www.google.com/search?q=42",
-                "accessibilityText": "Image alternate text"
-            }
+            "image": "https://www.google.com/search?q=42"         
         }
     }
 
