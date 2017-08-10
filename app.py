@@ -115,7 +115,7 @@ def makeCard(resp):
     print("Inside make card")
     return {
         "title": "Math & prime numbers",
-        "image": "https://drive.google.com/open?id=0BzU--BJmmVjua0dSVnZNYVJCLXc"
+        "image_url": "https://drive.google.com/open?id=0BzU--BJmmVjua0dSVnZNYVJCLXc"
     }
 
 def getParameters(req):
