@@ -114,8 +114,18 @@ def makeCard(resp):
     '''
     print("Inside make card")
     return {
-        "title": "Math & prime numbers",
-        "image_url": "https://drive.google.com/open?id=0BzU--BJmmVjua0dSVnZNYVJCLXc"
+        "simpleResponse": {
+                                "textToSpeech": "Math and prime numbers it is!"
+                            },
+        "basicCard": {
+                                "title": "Math & prime numbers",
+                                "formattedText": "42 is an even composite number. It \n      is composed of three distinct prime numbers multiplied together. It \n      has a total of eight divisors. 42 is an abundant number, because the \n      sum of its proper divisors 54 is greater than itself. To count from \n      1 to 42 would take you about twenty-one…",
+                                "image": {
+                                    "url": "https://drive.google.com/open?id=0BzU--BJmmVjua0dSVnZNYVJCLXc",
+                                    "accessibilityText": "Image alternate text"
+                                },
+                                "buttons": []
+                            }
     }
 
 def getParameters(req):
