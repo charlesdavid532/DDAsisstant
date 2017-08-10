@@ -32,6 +32,7 @@ bot = Bot(PAGE_ACCESS_TOKEN)
 
 app.config['MONGO_DBNAME'] = 'temp'
 app.config['MONGO_URI'] = 'mongodb://admin:admin@ds145892.mlab.com:45892/temp'
+app.config['ASSIST_ACTIONS_ON_GOOGLE'] = True
 
 mongo = PyMongo(app)
 
@@ -75,6 +76,8 @@ def processRequest(req):
     if req.get("result").get("action") == "sales.statistics":
         myCustomResult = getParameters(req)
         res = makeWebhookResult(myCustomResult)
+    elif req.get("result").get("action") == "showAllUsers":
+        res = makeCard(req)
     elif req.get("result").get("action") == "time.timeperiod":
         ''' TODO REMOVE
         myCustomResult = getDummyParameters(req)
@@ -98,9 +101,15 @@ def makeWebhookResult(data):
         "displayText": speech,
         # "data": data,
         # "contextOut": [],
-        "source": "first-chatbot"
+        "source": "DDAsisstant"
     }
     
+
+def makeCard(resp):
+
+    resp.card(text='Dummy Card',title='Card title',img_url='https://drive.google.com/open?id=0BzU--BJmmVjua0dSVnZNYVJCLXc')
+
+    return resp
 
 def getParameters(req):
     result = req.get("result")
