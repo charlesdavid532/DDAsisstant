@@ -128,13 +128,14 @@ def makeCard(resp):
                                 "buttons": []
                             }
     }
-    
+    '''
     return {
         "simpleResponse": {
                                 "textToSpeech": "Howdy! I can tell you fun facts about almost any number, like 42. What do you have in mind?",
                                 "displayText": "Howdy! I can tell you fun facts about almost any number. What do you have in mind?"
-                            }
-        }
+                            },
+         "source": "DDAsisstant"
+    }
     '''
     return {
         "speech": "Howdy",
@@ -143,6 +144,7 @@ def makeCard(resp):
         # "contextOut": [],
         "source": "DDAsisstant"
     }
+    '''
 
 def getParameters(req):
     result = req.get("result")
