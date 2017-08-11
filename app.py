@@ -142,7 +142,7 @@ def makeCard(resp):
         "displayText": "Howdy",
         "data": {
           "google": {
-          "expect_user_response": true,
+          "expect_user_response": True,
           "rich_response": {
           "items": [
             {
