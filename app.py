@@ -155,7 +155,7 @@ def makeCard(resp):
                     "title": "Math & prime numbers",
                     "formattedText": "42 is an even composite number. It \n      is composed of three distinct prime numbers multiplied together. It \n      has a total of eight divisors. 42 is an abundant number, because the \n      sum of its proper divisors 54 is greater than itself. To count from \n      1 to 42 would take you about twenty-one…",
                     "image": {
-                        "url": "https://www.google.com/search?q=42",
+                        "url": "http://www.sciencemag.org/sites/default/files/styles/article_main_medium/public/images/ss-bird_honeycreeper.jpg?itok=eEm6TBrb",
                         "accessibilityText": "Image alternate text"
                     },
                     "buttons": []
