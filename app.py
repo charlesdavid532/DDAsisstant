@@ -146,35 +146,20 @@ def makeCard(resp):
           "rich_response": {
           "items": [
             {
-              "simpleResponse": {
-                  "textToSpeech":"This is the first simple response for a basic card"
-              }
+                "simpleResponse": {
+                    "textToSpeech": "Math and prime numbers it is!"
+                }
             },
             {
-              "basicCard": {
-                "title":"Title: this is a title",
-                "formattedText":"This is a basic card.  Text in a\n      basic card can include \"quotes\" and most other unicode characters\n      including emoji 📱.  Basic cards also support some markdown\n      formatting like *emphasis* or _italics_, **strong** or __bold__,\n      and ***bold itallic*** or ___strong emphasis___ as well as other things\n      like line  \nbreaks",
-                "subtitle":
-                "This is a subtitle",
-                "image": {
-                  "url":"https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png",
-                  "accessibilityText":"Image alternate text"
-                },
-                "buttons": [
-                  {
-                    "title":"This is a button",
-                    "openUrlAction":{
-                      "url":"https://assistant.google.com/"
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "simpleResponse": {
-                "textToSpeech":"This is the 2nd simple response ",
-                "displayText":"This is the 2nd simple response"
-              }
+                "basicCard": {
+                    "title": "Math & prime numbers",
+                    "formattedText": "42 is an even composite number. It \n      is composed of three distinct prime numbers multiplied together. It \n      has a total of eight divisors. 42 is an abundant number, because the \n      sum of its proper divisors 54 is greater than itself. To count from \n      1 to 42 would take you about twenty-one…",
+                    "image": {
+                        "url": "https://www.google.com/search?q=42",
+                        "accessibilityText": "Image alternate text"
+                    },
+                    "buttons": []
+                }
             }
           ],
           "suggestions":
