@@ -151,7 +151,7 @@ def makeCard(resp):
             },
             {
                 "basicCard": {
-                    "title": "Math & prime numbers"
+                    "title": "Math & prime numbers",
                     "image": {
                         "url": "http://www.sciencemag.org/sites/default/files/styles/article_main_medium/public/images/ss-bird_honeycreeper.jpg?itok=eEm6TBrb",
                         "accessibilityText": "Image alternate text"
