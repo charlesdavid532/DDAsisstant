@@ -130,8 +130,10 @@ def makeCard(resp):
     }
     '''
     return {
-        "textToSpeech": "Howdy! I can tell you fun facts about almost any number, like 42. What do you have in mind?",
+        "simpleResponse": {
+                                "textToSpeech": "Howdy! I can tell you fun facts about almost any number, like 42. What do you have in mind?",
                                 "displayText": "Howdy! I can tell you fun facts about almost any number. What do you have in mind?"
+                            }
         }
 
 def getParameters(req):
