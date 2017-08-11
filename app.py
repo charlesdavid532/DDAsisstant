@@ -141,23 +141,48 @@ def makeCard(resp):
         "speech": "Howdy",
         "displayText": "Howdy",
         "data": {
-          "telegram": {
+          "google": {
+          "expect_user_response": True,
           "rich_response": {
           "items": [
             {
-                "simpleResponse": {
-                    "textToSpeech": "Math and prime numbers it is!"
-                }
+              "simpleResponse": {
+                  "textToSpeech":"This is the first simple response for a basic card"
+              }
             },
             {
-                "basicCard": {
-                    "title": "Math & prime numbers",
-                    "image": {
-                        "url": "http://www.sciencemag.org/sites/default/files/styles/article_main_medium/public/images/ss-bird_honeycreeper.jpg?itok=eEm6TBrb",
-                        "accessibilityText": "Image alternate text"
+              "basicCard": {
+                "title":"Title: this is a title",
+                "formattedText":"This is a basic card.  Text in a\n      basic card can include \"quotes\" and most other unicode characters\n      including emoji 📱.  Basic cards also support some markdown\n      formatting like *emphasis* or _italics_, **strong** or __bold__,\n      and ***bold itallic*** or ___strong emphasis___ as well as other things\n      like line  \nbreaks",
+                "subtitle":
+                "This is a subtitle",
+                "image": {
+                  "url":"https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png",
+                  "accessibilityText":"Image alternate text"
+                },
+                "buttons": [
+                  {
+                    "title":"This is a button",
+                    "openUrlAction":{
+                      "url":"https://assistant.google.com/"
                     }
-                }
+                  }
+                ]
+              }
+            },
+            {
+              "simpleResponse": {
+                "textToSpeech":"This is the 2nd simple response ",
+                "displayText":"This is the 2nd simple response"
+              }
             }
+          ],
+          "suggestions":
+          [
+            {"title":"Basic Card"},
+            {"title":"List"},
+            {"title":"Carousel"},
+            {"title":"Suggestions"}
           ]
         }
         }
