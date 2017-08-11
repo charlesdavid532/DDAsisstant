@@ -113,6 +113,7 @@ def makeCard(resp):
     return resp
     '''
     print("Inside make card")
+    '''
     return {
         "simpleResponse": {
                                 "textToSpeech": "Math and prime numbers it is!"
@@ -127,6 +128,11 @@ def makeCard(resp):
                                 "buttons": []
                             }
     }
+    '''
+    return {
+        "textToSpeech": "Howdy! I can tell you fun facts about almost any number, like 42. What do you have in mind?",
+                                "displayText": "Howdy! I can tell you fun facts about almost any number. What do you have in mind?"
+        }
 
 def getParameters(req):
     result = req.get("result")
