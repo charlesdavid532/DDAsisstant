@@ -149,7 +149,7 @@ def makeCard(resp):
     except Exception:
         print("Could not query database")
         return ''
-    '''
+    
     return {
         "speech": "Howdy",
         "displayText": "Howdy",
@@ -194,8 +194,8 @@ def makeCard(resp):
          #"contextOut": [],
         "source": "DDAsisstant"
     }
+    
     '''
-
     return {
         "speech": "Howdy",
         "displayText": "Howdy",
@@ -295,7 +295,7 @@ def makeCard(resp):
          #"contextOut": [],
         "source": "DDAsisstant"
     }
-    
+    '''
 
 def getParameters(req):
     result = req.get("result")
