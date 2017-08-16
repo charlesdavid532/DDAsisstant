@@ -152,7 +152,7 @@ def makeCard(resp):
     
     print("Before printing list item")
     #print(json.dumps(createListItem(fullName,fullName,designation,"https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png"), indent=4))
-    print(json.dumps(createList("My list title",[fullName, "Charlie"],[fullName, "Dans"],[designation, "Cons"],["https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png","https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png"]), indent=4))
+    print(json.dumps(createListResponse("My sample response",["sug1","sug2"],"My list title",[fullName, "Charlie"],[fullName, "Dans"],[designation, "Cons"],["https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png","https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png"]), indent=4))
 
     return {
         "speech": "Howdy",
@@ -351,6 +351,51 @@ def createList(listTitle, titleArr, synArr, descriptionArr, imgUrlArr):
 
 
     return systemIntentDict
+
+
+def createListResponse(simpleResponse, sugList, listTitle, titleArr, synArr, descriptionArr, imgUrlArr):
+    listResponse = {}
+    itemsDict = {}
+    itemsDict["simpleResponse"] = {}
+    simpleResponseDict = itemsDict["simpleResponse"]
+    simpleResponseDict["textToSpeech"] = simpleResponse
+
+    listResponse["data"] = {}
+    listResponse["source"] = "DDAsisstant"
+    dataDict = listResponse["data"]
+
+    dataDict["google"] = {}
+    googleDict = dataDict["google"]
+
+    googleDict["expect_user_response"] = True
+    googleDict["rich_response"] = {}
+    
+
+    richResponseDict = googleDict["rich_response"]
+    richResponseDict["items"] = []
+    
+
+    itemList = richResponseDict["items"]
+    itemList.append(itemsDict)
+
+    richResponseDict["suggestions"] = createSuggestionList(sugList)
+
+    googleDict["systemIntent"] = createList(listTitle, titleArr, synArr, descriptionArr, imgUrlArr)
+
+    return listResponse
+
+
+def createSuggestion(title):
+    suggestionDict = {}
+    suggestionDict["title"] = title
+    return suggestionDict
+
+def createSuggestionList(titleList):
+    suggestionList = []
+    for index in range(len(titleList)):
+        suggestionList.append(createSuggestion(titleList[index]))
+
+    return suggestionList
 
 def getParameters(req):
     result = req.get("result")
