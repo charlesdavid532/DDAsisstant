@@ -1,4 +1,4 @@
-﻿from __future__ import print_function
+from __future__ import print_function
 import json
 import os, sys, json, requests
 from flask import Flask, request, make_response
@@ -150,6 +150,9 @@ def makeCard(resp):
         print("Could not query database")
         return ''
     
+    print("Before printing list item")
+    print(createListItem(fullName,fullName,designation,"https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png"))
+
     return {
         "speech": "Howdy",
         "displayText": "Howdy",
@@ -241,7 +244,8 @@ def makeCard(resp):
                         "description":"This is a description of a list item",
                         "image": {
                             "url":"https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png",
-                            "accessibilityText":"Image alternate text"}
+                            "accessibilityText":"Image alternate text"
+                            }
                         },
                         {
                             "optionInfo": {
@@ -296,6 +300,31 @@ def makeCard(resp):
         "source": "DDAsisstant"
     }
     '''
+
+'''
+This function creates a single list item to be used for generating the list card item
+'''
+def createListItem(title,syn,description, imgURL):
+    listItemDict = {}
+    listItemDict["optionInfo"] = {}
+
+    optionInfoDict = listItemDict["optionInfo"]
+    optionInfoDict["key"] = title
+    optionInfoDict["synonyms"] = []
+
+    synList = optionInfoDict["synonyms"]
+    synList.append(syn)
+
+    listItemDict["title"] = title
+    listItemDict["description"] = description
+
+    listItemDict["image"] = {}
+
+    imageDict = listItemDict["image"]
+    imageDict["url"] = imgURL
+    imageDict["accessibilityText"] = "This is a temporary accessibility text"
+
+    return listItemDict
 
 def getParameters(req):
     result = req.get("result")
