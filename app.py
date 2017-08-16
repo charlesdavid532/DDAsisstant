@@ -151,7 +151,7 @@ def makeCard(resp):
         return ''
     
     print("Before printing list item")
-    print(createListItem(fullName,fullName,designation,"https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png"))
+    print(json.dumps(createListItem(fullName,fullName,designation,"https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png"), indent=4))
 
     return {
         "speech": "Howdy",
@@ -325,6 +325,31 @@ def createListItem(title,syn,description, imgURL):
     imageDict["accessibilityText"] = "This is a temporary accessibility text"
 
     return listItemDict
+
+
+'''
+This function creates an entire list that is used for generating the list card
+'''
+def createList(listTitle, titleArr, synArr, descriptionArr, imgUrlArr):
+    systemIntentDict = {}
+    systemIntentDict["intent"] = "actions.intent.OPTION"
+    systemIntentDict["data"] = {}
+
+    dataDict = systemIntentDict["data"]
+    dataDict["@type"] = "type.googleapis.com/google.actions.v2.OptionValueSpec"
+    dataDict["listSelect"] = {}
+
+    listSelectDict = dataDict["listSelect"]
+    listSelectDict["title"] = listTitle
+    listSelectDict["items"] = []
+
+    itemList = listSelectDict["items"]
+
+    for index in range(len(titleArr)):
+        itemList.append(createListItem(titleArr[index], synArr[index], descriptionArr[index], imgUrlArr[index]))
+
+
+    return systemIntentDict
 
 def getParameters(req):
     result = req.get("result")
