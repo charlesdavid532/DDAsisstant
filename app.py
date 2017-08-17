@@ -111,7 +111,7 @@ def makeWebhookResult(data):
 def showWelcomeIntent(resp):
     print ("Inside show welcome intent")
 
-    return createCardResponse("Hi, I am Toni, your very own Deloitte Digital Assistant! What can I do for you?", ["Show me all employees of digital"], 
+    return createCardResponse("Hi, I am Toni, your very own Deloitte Digital Assistant! What can I do for you?", ["Show digital employees"], 
         "Tonibot", "DDAssistant a.k.a. Tonibot is designed to help map employees of Deloitte Digital to the upcoming projects.", "", 
         "https://s3.ap-south-1.amazonaws.com/tonibot-bucket/cdavid.jpg", "Default accessibility text", [], [])
 
