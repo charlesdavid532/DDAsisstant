@@ -151,7 +151,7 @@ def makeCard(resp):
         return ''
     
     print("Before opening image")
-    #added comment
+   
     #createImage()
 
     print("Before printing list item")
