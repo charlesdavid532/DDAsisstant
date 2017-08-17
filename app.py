@@ -6,7 +6,7 @@ from flask import jsonify
 from flask.ext.pymongo import PyMongo
 from pymessenger import Bot
 from datetime import datetime as dt
-
+import Image
 
 try:
     import apiai
@@ -150,6 +150,10 @@ def makeCard(resp):
         print("Could not query database")
         return ''
     
+    print("Before opening image")
+
+    createImage()
+
     print("Before printing list item")
     #print(json.dumps(createListItem(fullName,fullName,designation,"https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png"), indent=4))
     #print(json.dumps(createListResponse("My sample response",["sug1","sug2"],"My list title",[fullName, "Charlie"],[fullName, "Dans"],[designation, "Cons"],["https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png","https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png"]), indent=4))
@@ -303,6 +307,11 @@ def makeCard(resp):
         "source": "DDAsisstant"
     }
     '''
+
+
+def createImage():
+    image = Image.open('profile.jpg')
+    image.show()
 
 '''
 This function creates a single list item to be used for generating the list card item
