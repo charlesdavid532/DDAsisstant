@@ -77,8 +77,10 @@ def processRequest(req):
     if req.get("result").get("action") == "sales.statistics":
         myCustomResult = getParameters(req)
         res = makeWebhookResult(myCustomResult)
+    elif req.get("result").get("action") == "welcome.intent":
+        res = showWelcomeIntent(req)
     elif req.get("result").get("action") == "showAllUsers":
-        res = makeCard(req)
+        res = makeListOfAllUsers(req)
     elif req.get("result").get("action") == "time.timeperiod":
         ''' TODO REMOVE
         myCustomResult = getDummyParameters(req)
@@ -106,7 +108,14 @@ def makeWebhookResult(data):
     }
     
 
-def makeCard(resp):
+def showWelcomeIntent(resp):
+    print ("Inside show welcome intent")
+
+    return createCardResponse("Hi, I am Toni, your very own Deloitte Digital Assistant! What can I do for you?", ["Show me all employees of digital"], 
+        "Tonibot", "DDAssistant a.k.a. Tonibot is designed to help map employees of Deloitte Digital to the upcoming projects.", "", 
+        "https://s3.ap-south-1.amazonaws.com/tonibot-bucket/cdavid.jpg", "Default accessibility text", [], [])
+
+def makeListOfAllUsers(resp):
     '''
     resp.card(text='Dummy Card',title='Card title',img_url='https://drive.google.com/open?id=0BzU--BJmmVjua0dSVnZNYVJCLXc')
 
@@ -321,6 +330,85 @@ def createImage():
     image = Image.open('profile.jpg')
     image.show()
 
+'''
+This function returns a card response
+'''
+def createCardResponse(simpleResponse, sugList, title, formattedText, subtitle, imgURL, imgAccText, btnTitleList, btnUrlList):
+    cardResponse = {}
+
+    itemsDict = {}
+    itemsDict["simpleResponse"] = {}
+    simpleResponseDict = itemsDict["simpleResponse"]
+    simpleResponseDict["textToSpeech"] = simpleResponse
+
+    basicCardDict = {}
+    basicCardDict["basicCard"] = createCard(title, formattedText, subtitle, imgURL, imgAccText, btnTitleList, btnUrlList)
+
+    cardResponse["data"] = {}
+    cardResponse["source"] = "DDAsisstant"
+    dataDict = cardResponse["data"]
+
+    dataDict["google"] = {}
+    googleDict = dataDict["google"]
+
+    googleDict["expect_user_response"] = True
+    googleDict["rich_response"] = {}
+    
+
+    richResponseDict = googleDict["rich_response"]
+    richResponseDict["items"] = []
+    
+
+    itemList = richResponseDict["items"]
+    itemList.append(itemsDict)
+    itemList.append(basicCardDict)
+
+    richResponseDict["suggestions"] = createSuggestionList(sugList)
+
+    
+
+    return cardResponse
+
+'''
+This function creates a card
+'''
+def createCard(title, formattedText, subtitle, imgURL, imgAccText, btnTitleList, btnUrlList):
+    basicCard = {}
+
+    if title != "":
+        basicCard["title"] = title
+
+    basicCard["formattedText"] = formattedText
+
+    if subtitle != "":
+        basicCard["subtitle"] = subtitle
+
+    basicCard["image"] = {}
+
+    imageDict = basicCard["image"]
+    imageDict["url"] = imgURL
+    imageDict["accessibilityText"] = imgAccText
+
+    basicCard["buttons"] = []
+
+    buttonsList = basicCard["buttons"]
+
+    for index in range(len(btnTitleList)):
+        buttonsList.append(createButton(btnTitleList[index], btnUrlList[index]))
+
+    return basicCard
+
+
+def createButton(title, openUrlAction):
+    btnDict = {}
+
+    btnDict["title"] = title
+    btnDict["openUrlAction"] = {}
+
+    openUrlActionDict = btnDict["openUrlAction"]
+    openUrlActionDict["url"] = openUrlAction
+
+    return btnDict
 '''
 This function creates a single list item to be used for generating the list card item
 '''
