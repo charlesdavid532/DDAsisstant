@@ -6,7 +6,7 @@ from flask import jsonify
 from flask.ext.pymongo import PyMongo
 from pymessenger import Bot
 from datetime import datetime as dt
-import Image
+from PIL import Image
 
 try:
     import apiai
