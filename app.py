@@ -70,7 +70,11 @@ def handle_message():
     return r
 
     
- 
+ def itemSelected (app):
+    # Get the user's selection
+    param = app.getContextArgument('actions_intent_option',
+    'OPTION').value
+    print ("There is no chance it comes here")
 
 def processRequest(req):
     print('hi')
