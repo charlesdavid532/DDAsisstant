@@ -70,7 +70,7 @@ def handle_message():
     return r
 
     
- def itemSelected (app):
+ def itemSelected(app):
     # Get the user's selection
     param = app.getContextArgument('actions_intent_option',
     'OPTION').value
