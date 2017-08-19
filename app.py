@@ -85,7 +85,7 @@ def processRequest(req):
     elif req.get("result").get("action") == "detailed.bio":
         res = showDetailedBio(req)
     elif req.get("result").get("action") == "time.timeperiod":
-        ''' TODO REMOVE
+        ''' TODO REMOVE temp
         myCustomResult = getDummyParameters(req)
         res = makeWebhookResult(myCustomResult)
         '''
