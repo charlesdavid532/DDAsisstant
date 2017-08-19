@@ -44,6 +44,7 @@ def index():
 
 @app.route('/', methods=['GET'])
 def verify():
+    print ("Hellow world")
 	# Webhook verification
     if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
         if not request.args.get("hub.verify_token") == "hello":
@@ -81,6 +82,8 @@ def processRequest(req):
         res = showWelcomeIntent(req)
     elif req.get("result").get("action") == "showAllUsers":
         res = makeListOfAllUsers(req)
+    elif req.get("result").get("action") == "detailed.bio":
+        res = showDetailedBio(req)
     elif req.get("result").get("action") == "time.timeperiod":
         ''' TODO REMOVE
         myCustomResult = getDummyParameters(req)
@@ -118,6 +121,11 @@ def showWelcomeIntent(resp):
     return createCardResponse("Hi, I am Toni, your very own Deloitte Digital Assistant! What can I do for you?", ["Show digital employees"], 
         "Tonibot", "DDAssistant a.k.a. Tonibot is designed to help map employees of Deloitte Digital to the upcoming projects.", "", 
         "https://s3.ap-south-1.amazonaws.com/tonibot-bucket/blue-bot.png", "Default accessibility text", [], [])
+
+
+def showDetailedBio(req):
+    print("wow")
+
 
 def makeListOfAllUsers(resp):
     '''
