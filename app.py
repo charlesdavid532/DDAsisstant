@@ -126,10 +126,28 @@ def showWelcomeIntent(resp):
 def showDetailedBio(req):
     print("wow")
     print("before the argument parameter")
-    print (req["originalRequest"]["data"]["inputs"][0]["arguments"][0]["textValue"])
-    print("before param value")
-    param = app.getContextArgument('actions_intent_option','OPTION').value
-    print(param)
+    optionVal = req["originalRequest"]["data"]["inputs"][0]["arguments"][0]["textValue"]
+    print(optionVal)
+    
+    baseUrl = "https://s3.ap-south-1.amazonaws.com/tonibot-bucket/"
+    tempData = mongo.db.temp1
+    try: 
+        for s in tempData.find({'name': optionVal}):
+            fullName = s['name']
+            print ("The name is:" + s['name'])
+            designation = s['designation']
+            bio = s['bio']
+            photoUrl = baseUrl + s['photo']
+            profilePhoto = photoUrl
+
+    except Exception:
+        print("Could not query database")
+        return ''
+
+
+    return createCardResponse("Hi, here is the detailed bio of " + optionVal, ["Show digital employees"], 
+        fullName, bio, designation, 
+        profilePhoto, "Default accessibility text", [], [])
 
 
 def makeListOfAllUsers(resp):
