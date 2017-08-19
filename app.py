@@ -7,6 +7,7 @@ from flask.ext.pymongo import PyMongo
 from pymessenger import Bot
 from datetime import datetime as dt
 from PIL import Image
+from bson.objectid import ObjectId
 
 try:
     import apiai
@@ -132,7 +133,7 @@ def showDetailedBio(req):
     baseUrl = "https://s3.ap-south-1.amazonaws.com/tonibot-bucket/"
     tempData = mongo.db.temp1
     try: 
-        for s in tempData.find({'name': optionVal}):
+        for s in tempData.find({'_id': ObjectId(optionVal)}):
             fullName = s['name']
             print ("The name is:" + s['name'])
             designation = s['designation']
@@ -187,10 +188,12 @@ def makeListOfAllUsers(resp):
     designation = []
     bio = []
     profilePhoto = []
+    keys = []
     baseUrl = "https://s3.ap-south-1.amazonaws.com/tonibot-bucket/"
     tempData = mongo.db.temp1
     try: 
         for s in tempData.find():
+            keys.append(s['_id']['$oid'])
             fullName.append(s['name'])
             print ("The name is:" + s['name'])
             designation.append(s['designation'])
@@ -210,7 +213,7 @@ def makeListOfAllUsers(resp):
     #print(json.dumps(createListItem(fullName,fullName,designation,"https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png"), indent=4))
     #print(json.dumps(createListResponse("My sample response",["sug1","sug2"],"My list title",[fullName, "Charlie"],[fullName, "Dans"],[designation, "Cons"],["https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png","https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png"]), indent=4))
 
-    return createListResponse("Here are the employees of Deloitte Digital",["sug1","sug2"],"DD Resources", fullName, fullName, bio, profilePhoto)
+    return createListResponse("Here are the employees of Deloitte Digital",["sug1","sug2"],"DD Resources", keys, fullName, fullName, bio, profilePhoto)
     '''
     return {
         "speech": "Howdy",
@@ -447,12 +450,12 @@ def createButton(title, openUrlAction):
 '''
 This function creates a single list item to be used for generating the list card item
 '''
-def createListItem(title,syn,description, imgURL):
+def createListItem(key, title, syn, description, imgURL):
     listItemDict = {}
     listItemDict["optionInfo"] = {}
 
     optionInfoDict = listItemDict["optionInfo"]
-    optionInfoDict["key"] = title
+    optionInfoDict["key"] = key
     optionInfoDict["synonyms"] = []
 
     synList = optionInfoDict["synonyms"]
@@ -473,7 +476,7 @@ def createListItem(title,syn,description, imgURL):
 '''
 This function creates an entire list that is used for generating the list card
 '''
-def createList(listTitle, titleArr, synArr, descriptionArr, imgUrlArr):
+def createList(listTitle, keyArr, titleArr, synArr, descriptionArr, imgUrlArr):
     systemIntentDict = {}
     systemIntentDict["intent"] = "actions.intent.OPTION"
     systemIntentDict["data"] = {}
@@ -489,13 +492,13 @@ def createList(listTitle, titleArr, synArr, descriptionArr, imgUrlArr):
     itemList = listSelectDict["items"]
 
     for index in range(len(titleArr)):
-        itemList.append(createListItem(titleArr[index], synArr[index], descriptionArr[index], imgUrlArr[index]))
+        itemList.append(createListItem(keyArr[index], titleArr[index], synArr[index], descriptionArr[index], imgUrlArr[index]))
 
 
     return systemIntentDict
 
 
-def createListResponse(simpleResponse, sugList, listTitle, titleArr, synArr, descriptionArr, imgUrlArr):
+def createListResponse(simpleResponse, sugList, listTitle, keyArr, titleArr, synArr, descriptionArr, imgUrlArr):
     listResponse = {}
     itemsDict = {}
     itemsDict["simpleResponse"] = {}
@@ -522,7 +525,7 @@ def createListResponse(simpleResponse, sugList, listTitle, titleArr, synArr, des
 
     richResponseDict["suggestions"] = createSuggestionList(sugList)
 
-    googleDict["systemIntent"] = createList(listTitle, titleArr, synArr, descriptionArr, imgUrlArr)
+    googleDict["systemIntent"] = createList(listTitle, keyArr, titleArr, synArr, descriptionArr, imgUrlArr)
 
     return listResponse
 
