@@ -153,7 +153,7 @@ def showDetailedBio(req):
         return ''
 
 
-    return createCardResponse("Hi, here is the detailed bio of " + optionVal, ["Show digital employees"], 
+    return createCardResponse("Hi, here is the detailed bio of " + fullName, ["Show digital employees"], 
         fullName, bio, designation, 
         profilePhoto, "Default accessibility text", [], [])
 
