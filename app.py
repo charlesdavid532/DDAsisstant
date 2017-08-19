@@ -193,7 +193,7 @@ def makeListOfAllUsers(resp):
     tempData = mongo.db.temp1
     try: 
         for s in tempData.find():
-            keys.append(s['_id']['$oid'])
+            keys.append(s['_id'])
             fullName.append(s['name'])
             print ("The name is:" + s['name'])
             designation.append(s['designation'])
