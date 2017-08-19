@@ -125,6 +125,11 @@ def showWelcomeIntent(resp):
 
 def showDetailedBio(req):
     print("wow")
+    print("before the argument parameter")
+    print (req["originalRequest"]["data"]["inputs"][0]["arguments"][0]["textValue"])
+    print("before param value")
+    param = app.getContextArgument('actions_intent_option','OPTION').value
+    print(param)
 
 
 def makeListOfAllUsers(resp):
