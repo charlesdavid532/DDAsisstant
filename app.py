@@ -37,6 +37,13 @@ app.config['ASSIST_ACTIONS_ON_GOOGLE'] = True
 
 mongo = PyMongo(app)
 
+
+class JSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+        return json.JSONEncoder.default(self, o)
+
 '''
 @app.route('/')
 def index():
@@ -64,7 +71,7 @@ def handle_message():
     print(json.dumps(data, indent=4))
     res = processRequest(data)
 
-    res = json.dumps(res, indent=4)
+    res = json.dumps(res, indent=4, cls=JSONEncoder)
     # print(res)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
@@ -193,7 +200,7 @@ def makeListOfAllUsers(resp):
     tempData = mongo.db.temp1
     try: 
         for s in tempData.find():
-            keys.append(str(s['_id']['$oid']))
+            keys.append(s['_id'])
             fullName.append(s['name'])
             print ("The name is:" + s['name'])
             designation.append(s['designation'])
