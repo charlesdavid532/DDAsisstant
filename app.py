@@ -220,7 +220,7 @@ def makeListOfAllUsers(resp):
     #print(json.dumps(createListItem(fullName,fullName,designation,"https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png"), indent=4))
     #print(json.dumps(createListResponse("My sample response",["sug1","sug2"],"My list title",[fullName, "Charlie"],[fullName, "Dans"],[designation, "Cons"],["https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png","https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png"]), indent=4))
 
-    return createListResponse("Here are the employees of Deloitte Digital",["sug1","sug2"],"DD Resources", keys, fullName, fullName, bio, profilePhoto)
+    return createListResponse("Here are the employees of Deloitte Digital",[],"DD Resources", keys, fullName, fullName, designation, profilePhoto)
     '''
     return {
         "speech": "Howdy",
