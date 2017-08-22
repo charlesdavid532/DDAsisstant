@@ -126,8 +126,8 @@ def itemSelected(app):
 def showWelcomeIntent(resp):
     print ("Inside show welcome intent")
 
-    return createCardResponse("Hi, I am Toni, your very own Deloitte Digital Assistant! What can I do for you?", ["Show digital employees"], 
-        "Tonibot", "DDAssistant a.k.a. Tonibot is designed to help map employees of Deloitte Digital to the upcoming projects.", "", 
+    return createCardResponse("Hi, I am Dr. Digital, your very own Deloitte Digital Assistant! What can I do for you?", ["Show digital employees"], 
+        "Dr. Digital", "DDAssistant a.k.a. Dr. Digital is designed to help map employees of Deloitte Digital to the upcoming projects.", "", 
         "https://s3.ap-south-1.amazonaws.com/tonibot-bucket/blue-bot.png", "Default accessibility text", [], [])
 
 
