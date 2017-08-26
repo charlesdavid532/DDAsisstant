@@ -128,7 +128,7 @@ def showWelcomeIntent(resp):
 
     return createCardResponse("Hi, I am Doctor Digital, your very own Deloitte Digital Assistant! What can I do for you?", ["Show digital employees"], 
         "Dr. Digital", "DDAssistant a.k.a. Dr. Digital is designed to help map employees of Deloitte Digital to the upcoming projects.", "", 
-        "https://s3.ap-south-1.amazonaws.com/tonibot-bucket/blue-bot.png", "Default accessibility text", [], [])
+        "https://s3.ap-south-1.amazonaws.com/tonibot-bucket/blue-bot.png", "Default accessibility text", [], [], True)
 
 
 def showDetailedBio(req):
@@ -157,7 +157,7 @@ def showDetailedBio(req):
 
         return createCardResponse("Hi, here is the detailed bio of " + fullName, ["Show digital employees"], 
             fullName, bio, designation, 
-            profilePhoto, "Default accessibility text", [], [])
+            profilePhoto, "Default accessibility text", [], [], False)
     else:
         print("In the else part of detailed bio")
         return makeWebhookResult('This name does not exist in the list')
@@ -225,7 +225,7 @@ def makeListOfAllUsers(resp):
     #print(json.dumps(createListItem(fullName,fullName,designation,"https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png"), indent=4))
     #print(json.dumps(createListResponse("My sample response",["sug1","sug2"],"My list title",[fullName, "Charlie"],[fullName, "Dans"],[designation, "Cons"],["https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png","https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png"]), indent=4))
 
-    return createListResponse("Here are the employees of Deloitte Digital",[],"DD Resources", keys, fullName, fullName, designation, profilePhoto)
+    return createListResponse("Here are the employees of Deloitte Digital",[],"DD Resources", keys, fullName, fullName, designation, profilePhoto, False)
     '''
     return {
         "speech": "Howdy",
@@ -383,7 +383,7 @@ def createImage():
 '''
 This function returns a card response
 '''
-def createCardResponse(simpleResponse, sugList, title, formattedText, subtitle, imgURL, imgAccText, btnTitleList, btnUrlList):
+def createCardResponse(simpleResponse, sugList, title, formattedText, subtitle, imgURL, imgAccText, btnTitleList, btnUrlList, expectedUserResponse):
     cardResponse = {}
 
     itemsDict = {}
@@ -401,7 +401,7 @@ def createCardResponse(simpleResponse, sugList, title, formattedText, subtitle, 
     dataDict["google"] = {}
     googleDict = dataDict["google"]
 
-    googleDict["expect_user_response"] = True
+    googleDict["expect_user_response"] = expectedUserResponse
     googleDict["rich_response"] = {}
     
 
@@ -510,7 +510,7 @@ def createList(listTitle, keyArr, titleArr, synArr, descriptionArr, imgUrlArr):
     return systemIntentDict
 
 
-def createListResponse(simpleResponse, sugList, listTitle, keyArr, titleArr, synArr, descriptionArr, imgUrlArr):
+def createListResponse(simpleResponse, sugList, listTitle, keyArr, titleArr, synArr, descriptionArr, imgUrlArr, expectedUserResponse):
     listResponse = {}
     itemsDict = {}
     itemsDict["simpleResponse"] = {}
@@ -524,7 +524,7 @@ def createListResponse(simpleResponse, sugList, listTitle, keyArr, titleArr, syn
     dataDict["google"] = {}
     googleDict = dataDict["google"]
 
-    googleDict["expect_user_response"] = True
+    googleDict["expect_user_response"] = expectedUserResponse
     googleDict["rich_response"] = {}
     
 
