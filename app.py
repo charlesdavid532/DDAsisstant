@@ -126,7 +126,7 @@ def itemSelected(app):
 def showWelcomeIntent(resp):
     print ("Inside show welcome intent")
 
-    return createCardResponse("Hi, I am Dr. Digital, your very own Deloitte Digital Assistant! What can I do for you?", ["Show digital employees"], 
+    return createCardResponse("Hi, I am Doctor Digital, your very own Deloitte Digital Assistant! What can I do for you?", ["Show digital employees"], 
         "Dr. Digital", "DDAssistant a.k.a. Dr. Digital is designed to help map employees of Deloitte Digital to the upcoming projects.", "", 
         "https://s3.ap-south-1.amazonaws.com/tonibot-bucket/blue-bot.png", "Default accessibility text", [], [])
 
@@ -134,28 +134,32 @@ def showWelcomeIntent(resp):
 def showDetailedBio(req):
     print("wow")
     print("before the argument parameter")
-    optionVal = req["originalRequest"]["data"]["inputs"][0]["arguments"][0]["textValue"]
-    print(optionVal)
-    
-    baseUrl = "https://s3.ap-south-1.amazonaws.com/tonibot-bucket/"
-    tempData = mongo.db.temp1
-    try: 
-        for s in tempData.find({'_id': ObjectId(optionVal)}):
-            fullName = s['name']
-            print ("The name is:" + s['name'])
-            designation = s['designation']
-            bio = s['bio']
-            photoUrl = baseUrl + s['photo']
-            profilePhoto = photoUrl
+    firstInput = req["originalRequest"]["data"]["inputs"][0]
+    if 'arguments' in firstInput:
+        optionVal = firstInput["arguments"][0]["textValue"]
+        print(optionVal)
+        
+        baseUrl = "https://s3.ap-south-1.amazonaws.com/tonibot-bucket/"
+        tempData = mongo.db.temp1
+        try: 
+            for s in tempData.find({'_id': ObjectId(optionVal)}):
+                fullName = s['name']
+                print ("The name is:" + s['name'])
+                designation = s['designation']
+                bio = s['bio']
+                photoUrl = baseUrl + s['photo']
+                profilePhoto = photoUrl
 
-    except Exception:
-        print("Could not query database")
-        return ''
+        except Exception:
+            print("Could not query database")
+            return ''
 
 
-    return createCardResponse("Hi, here is the detailed bio of " + fullName, ["Show digital employees"], 
-        fullName, bio, designation, 
-        profilePhoto, "Default accessibility text", [], [])
+        return createCardResponse("Hi, here is the detailed bio of " + fullName, ["Show digital employees"], 
+            fullName, bio, designation, 
+            profilePhoto, "Default accessibility text", [], [])
+    else:
+        return 'This name does not exist in the list'
 
 
 def makeListOfAllUsers(resp):
