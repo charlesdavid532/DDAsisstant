@@ -92,6 +92,8 @@ def processRequest(req):
         res = makeListOfAllUsers(req)
     elif req.get("result").get("action") == "detailed.bio":
         res = showDetailedBio(req)
+    elif req.get("result").get("action") == "application.close":
+        res = closeApplication(req)    
     elif req.get("result").get("action") == "time.timeperiod":
         ''' TODO REMOVE temp
         myCustomResult = getDummyParameters(req)
@@ -126,10 +128,18 @@ def itemSelected(app):
 def showWelcomeIntent(resp):
     print ("Inside show welcome intent")
 
-    return createCardResponse("Hi, I am Doctor Digital, your very own Deloitte Digital Assistant! The suggestions below are some of the things I can do! What can I do for you?", ["Show digital employees"], 
+    return createCardResponse(["Hi, I am Doctor Digital, your very own Deloitte Digital Assistant! The suggestions below are some of the things I can do! At any time if you want to leave the application say Bye doctor digital! What can I do for you?"], 
+        ["Show digital employees", "Bye doctor digital"], 
         "Dr. Digital", "DDAssistant a.k.a. Dr. Digital is designed to help map employees of Deloitte Digital to the upcoming projects.", "", 
         "https://s3.ap-south-1.amazonaws.com/tonibot-bucket/blue-bot.png", "Default accessibility text", [], [], True)
 
+
+def closeApplication(req):
+    print("closing application")
+
+    return createCardResponse(["It was a pleasure serving you!"], [], 
+        "Dr. Digital", "Hope to see you again soon!", "", 
+        "https://s3.ap-south-1.amazonaws.com/tonibot-bucket/blue-bot.png", "Default accessibility text", [], [], False)
 
 def showDetailedBio(req):
     print("wow")
@@ -155,9 +165,9 @@ def showDetailedBio(req):
             return ''
 
 
-        return createCardResponse("Hi, here is the detailed bio of " + fullName, ["Show digital employees"], 
+        return createCardResponse(["The detailed bio of " + fullName, "Click on any one of the suggestions below or say Bye doctor digital to exit!"], ["Show digital employees", "Bye doctor digital"], 
             fullName, bio, designation, 
-            profilePhoto, "Default accessibility text", [], [], False)
+            profilePhoto, "Default accessibility text", [], [], True)
     else:
         print("In the else part of detailed bio")
         return makeWebhookResult('This name does not exist in the list')
@@ -389,7 +399,7 @@ def createCardResponse(simpleResponse, sugList, title, formattedText, subtitle, 
     itemsDict = {}
     itemsDict["simpleResponse"] = {}
     simpleResponseDict = itemsDict["simpleResponse"]
-    simpleResponseDict["textToSpeech"] = simpleResponse
+    simpleResponseDict["textToSpeech"] = simpleResponse[0]
 
     basicCardDict = {}
     basicCardDict["basicCard"] = createCard(title, formattedText, subtitle, imgURL, imgAccText, btnTitleList, btnUrlList)
@@ -412,6 +422,13 @@ def createCardResponse(simpleResponse, sugList, title, formattedText, subtitle, 
     itemList = richResponseDict["items"]
     itemList.append(itemsDict)
     itemList.append(basicCardDict)
+
+    if len(simpleResponse) > 1:
+        secondItemsDict = {}
+        secondItemsDict["simpleResponse"] = {}
+        secondSimpleResponseDict = secondItemsDict["simpleResponse"]
+        secondSimpleResponseDict["textToSpeech"] = simpleResponse[1]
+        itemList.append(secondItemsDict)
 
     richResponseDict["suggestions"] = createSuggestionList(sugList)
 
