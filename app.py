@@ -159,7 +159,8 @@ def showDetailedBio(req):
             fullName, bio, designation, 
             profilePhoto, "Default accessibility text", [], [])
     else:
-        return 'This name does not exist in the list'
+        print("In the else part of detailed bio")
+        return makeWebhookResult('This name does not exist in the list')
 
 
 def makeListOfAllUsers(resp):
