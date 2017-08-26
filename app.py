@@ -162,7 +162,7 @@ def showDetailedBio(req):
 
         except Exception:
             print("Could not query database")
-            return makeWebhookResult('This name does not exist in the list! Click on any one of the names in the list or say Bye doctor digital to exit')
+            return makeWebhookResult('This name does not exist in the list! Say show digital employees to show all employees or say Bye doctor digital to exit')
 
 
         return createCardResponse(["The detailed bio of " + fullName, "Click on any one of the suggestions below or say Bye doctor digital to exit!"], ["Show digital employees", "Bye doctor digital"], 
@@ -170,7 +170,7 @@ def showDetailedBio(req):
             profilePhoto, "Default accessibility text", [], [], True)
     else:
         print("In the else part of detailed bio")
-        return makeWebhookResult('This name does not exist in the list! Click on any one of the names in the list or say Bye doctor digital to exit')
+        return makeWebhookResult('This name does not exist in the list! Say show digital employees to show all employees or say Bye doctor digital to exit')
 
 
 def makeListOfAllUsers(resp):
