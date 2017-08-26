@@ -225,7 +225,7 @@ def makeListOfAllUsers(resp):
 
     except Exception:
         print("Could not query database")
-        return ''
+        return makeWebhookResult('This name does not exist in the list!')
     
     print("Before opening image")
    
