@@ -93,7 +93,9 @@ def processRequest(req):
     elif req.get("result").get("action") == "detailed.bio":
         res = showDetailedBio(req)
     elif req.get("result").get("action") == "application.close":
-        res = closeApplication(req)    
+        res = closeApplication(req)
+    elif req.get("result").get("action") == "application.help":
+        res = showHelpScreen(req)    
     elif req.get("result").get("action") == "time.timeperiod":
         ''' TODO REMOVE temp
         myCustomResult = getDummyParameters(req)
@@ -140,6 +142,13 @@ def closeApplication(req):
     return createCardResponse(["It was a pleasure serving you!"], [], 
         "Dr. Digital", "Hope to see you again soon!", "", 
         "https://s3.ap-south-1.amazonaws.com/tonibot-bucket/blue-bot.png", "Default accessibility text", [], [], False)
+
+def showHelpScreen(req):
+    print("displaying help")
+
+    return createCardResponse(["Let me help you out! The suggestions below are some of the things I can do! At any time if you want to leave the application say Bye doctor digital! What can I do for you?"], ["Show digital employees", "Bye doctor digital"], 
+        "Dr. Digital", "DDAssistant a.k.a. Dr. Digital is designed to help map employees of Deloitte Digital to the upcoming projects.", "", 
+        "https://s3.ap-south-1.amazonaws.com/tonibot-bucket/blue-bot.png", "Default accessibility text", [], [], True)
 
 def showDetailedBio(req):
     print("wow")
